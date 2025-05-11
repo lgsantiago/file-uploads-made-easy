@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-// Step 1: Import Uppy and Dashboard
+// Step 1: Import Uppy, Dashboard, and plugins (ImageEditor, XHRUpload)
 import Uppy from "@uppy/core";
 import { Dashboard } from "@uppy/react";
 import ImageEditor from "@uppy/image-editor";
@@ -10,7 +10,7 @@ import "@uppy/dashboard/dist/style.css";
 import "@uppy/image-editor/dist/style.css";
 
 export default function FileUploader() {
-  // Step 2: Initialize Uppy
+  // Step 2: Initialize Uppy instance with ImageEditor and XHRUpload plugins.
   const [uppy] = useState(() => {
     const uppyInstance = new Uppy({
       id: "file-uploader",
@@ -39,7 +39,7 @@ export default function FileUploader() {
       },
     });
 
-    // Add XHRUpload plugin to handle file uploads
+    // XHRUpload plugin to handle file uploads
     uppyInstance.use(XHRUpload, {
       endpoint: "http://localhost:3001/upload",
       formData: true,
@@ -49,7 +49,7 @@ export default function FileUploader() {
     return uppyInstance;
   });
 
-  // Step 3: Handle file upload completion
+  // Step 3: Handle event listeners
   useEffect(() => {
     uppy.on("upload-success", (file, response) => {
       console.log("File uploaded successfully:", file.name);
@@ -64,6 +64,13 @@ export default function FileUploader() {
     uppy.on("complete", (result) => {
       console.log("Upload complete! Files:", result.successful);
     });
+
+    // Cleanup function to remove event listeners
+    return () => {
+      uppy.off("upload-success");
+      uppy.off("upload-error");
+      uppy.off("complete");
+    };
   }, [uppy]);
 
   return (
