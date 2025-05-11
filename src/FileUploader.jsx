@@ -64,13 +64,6 @@ export default function FileUploader() {
     uppy.on("complete", (result) => {
       console.log("Upload complete! Files:", result.successful);
     });
-
-    // Cleanup function to remove event listeners
-    return () => {
-      uppy.off("upload-success");
-      uppy.off("upload-error");
-      uppy.off("complete");
-    };
   }, [uppy]);
 
   return (
