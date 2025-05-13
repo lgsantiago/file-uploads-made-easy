@@ -42,7 +42,6 @@ export default function FileUploader() {
     // XHRUpload plugin to handle file uploads
     uppyInstance.use(XHRUpload, {
       endpoint: "http://localhost:3001/upload",
-      formData: true,
       fieldName: "files",
     });
 
@@ -51,19 +50,32 @@ export default function FileUploader() {
 
   // Step 3: Handle event listeners
   useEffect(() => {
-    uppy.on("upload-success", (file, response) => {
+    // Store handler references so we can clean them up properly
+    const successHandler = (file, response) => {
       console.log("File uploaded successfully:", file.name);
       console.log("Server response:", response);
-    });
+    };
 
-    uppy.on("upload-error", (file, error) => {
+    const errorHandler = (file, error) => {
       console.error("Error uploading file:", file.name);
       console.error("Error details:", error);
-    });
+    };
 
-    uppy.on("complete", (result) => {
+    const completeHandler = (result) => {
       console.log("Upload complete! Files:", result.successful);
-    });
+    };
+
+    // Add event listeners
+    uppy.on("upload-success", successHandler);
+    uppy.on("upload-error", errorHandler);
+    uppy.on("complete", completeHandler);
+
+    // Cleanup function to remove specific event listeners
+    return () => {
+      uppy.off("upload-success", successHandler);
+      uppy.off("upload-error", errorHandler);
+      uppy.off("complete", completeHandler);
+    };
   }, [uppy]);
 
   return (
