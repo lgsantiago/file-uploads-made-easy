@@ -74,19 +74,19 @@ Here are a few screenshots showcasing the Uppy uploader in action:
 
 #### 📁 Files Selected & Ready to Upload
 
-![Image editor in action](./assets/demo2.png)
+![Image editor in action](./src/assets/demo1.png)
 
 ---
 
 #### 🖼 Image Editing with `@uppy/image-editor`
 
-![Files selected for upload](./assets/demo3.png)
+![Files selected for upload](./src/assets/demo3.png)
 
 ---
 
 #### ✅ File Upload Complete
 
-![Initial drag and drop view](./assets/demo4.png)
+![Initial drag and drop view](./src/assets/demo4.png)
 
 ---
 
