@@ -68,7 +68,7 @@ Here are a few screenshots showcasing the Uppy uploader in action:
 
 #### 🧲 Drag-and-Drop Interface
 
-![Upload complete](./assets/demo1.png)
+![Upload complete](./src/assets/demo1.png)
 
 ---
 
